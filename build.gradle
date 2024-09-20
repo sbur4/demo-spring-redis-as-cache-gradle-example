@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+application {
+    mainClass = 'org.example.SpringBootDemoApplication'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    gradlePluginPortal()
+}
+
+dependencies {
+    // *** spring ***
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '2.7.18'
+    // https://mvnrepository.com/artifact/io.spring.gradle/dependency-management-plugin
+//    implementation group: 'io.spring.gradle', name: 'dependency-management-plugin', version: '1.1.5'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.18'
+    // *** logging ***
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.7.18'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.7.18'
+    // *** lombok ***
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
+    // *** database nosql ***
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.7.18'
+    // https://mvnrepository.com/artifact/redis.clients/jedis
+    implementation group: 'redis.clients', name: 'jedis', version: '3.8.0'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-cache
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.7.18'
+    // *** database  sql ***
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.4.1'
+    // *** jpa ***
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.7.18'
+
+    //
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    configurations {
+        all {
+            exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+            exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+            exclude group: 'org.slf4j', module: 'slf4j-log4j12'  // In case it's also included
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
